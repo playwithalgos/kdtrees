@@ -1,5 +1,5 @@
 
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35730/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 var app = (function () {
     'use strict';
 
@@ -713,7 +713,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (73:1) {#each rects as r}
+    // (104:1) {#each rects as r}
     function create_each_block_2(ctx) {
     	let rect;
     	let rect_x_value;
@@ -732,9 +732,9 @@ var app = (function () {
     			attr_dev(rect, "width", rect_width_value = "" + (/*r*/ ctx[13].x2 - /*r*/ ctx[13].x1));
     			attr_dev(rect, "height", rect_height_value = "" + (/*r*/ ctx[13].y2 - /*r*/ ctx[13].y1));
     			attr_dev(rect, "stroke", "lightgray");
-    			attr_dev(rect, "stroke-width", rect_stroke_width_value = 2 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*r*/ ctx[13].depth));
+    			attr_dev(rect, "stroke-width", rect_stroke_width_value = 3 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*r*/ ctx[13].depth));
     			attr_dev(rect, "fill", "none");
-    			add_location(rect, file, 73, 2, 1775);
+    			add_location(rect, file, 104, 2, 2266);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, rect, anchor);
@@ -757,7 +757,7 @@ var app = (function () {
     				attr_dev(rect, "height", rect_height_value);
     			}
 
-    			if (!current || dirty & /*points, rects*/ 5 && rect_stroke_width_value !== (rect_stroke_width_value = 2 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*r*/ ctx[13].depth))) {
+    			if (!current || dirty & /*points, rects*/ 5 && rect_stroke_width_value !== (rect_stroke_width_value = 3 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*r*/ ctx[13].depth))) {
     				attr_dev(rect, "stroke-width", rect_stroke_width_value);
     			}
     		},
@@ -787,14 +787,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(73:1) {#each rects as r}",
+    		source: "(104:1) {#each rects as r}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (86:1) {#each edges as e}
+    // (117:1) {#each edges as e}
     function create_each_block_1(ctx) {
     	let line;
     	let line_x__value;
@@ -803,6 +803,7 @@ var app = (function () {
     	let line_y__value_1;
     	let line_stroke_value;
     	let line_stroke_width_value;
+    	let line_marker_end_value;
     	let line_transition;
     	let current;
 
@@ -813,9 +814,10 @@ var app = (function () {
     			attr_dev(line, "y1", line_y__value = "" + /*e*/ ctx[10].begin.y);
     			attr_dev(line, "x2", line_x__value_1 = "" + /*e*/ ctx[10].end.x);
     			attr_dev(line, "y2", line_y__value_1 = "" + /*e*/ ctx[10].end.y);
-    			attr_dev(line, "stroke", line_stroke_value = /*e*/ ctx[10].coord == "x" ? "red" : "blue");
-    			attr_dev(line, "stroke-width", line_stroke_width_value = Math.log2(/*points*/ ctx[0].length) - 1 - /*e*/ ctx[10].depth);
-    			add_location(line, file, 86, 2, 2053);
+    			attr_dev(line, "stroke", line_stroke_value = /*e*/ ctx[10].coord == "x" ? "orange" : "skyblue");
+    			attr_dev(line, "stroke-width", line_stroke_width_value = 2 + 0.5 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*e*/ ctx[10].depth));
+    			attr_dev(line, "marker-end", line_marker_end_value = `url(#arrow${/*e*/ ctx[10].coord})`);
+    			add_location(line, file, 117, 2, 2544);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, line, anchor);
@@ -838,12 +840,16 @@ var app = (function () {
     				attr_dev(line, "y2", line_y__value_1);
     			}
 
-    			if (!current || dirty & /*edges*/ 2 && line_stroke_value !== (line_stroke_value = /*e*/ ctx[10].coord == "x" ? "red" : "blue")) {
+    			if (!current || dirty & /*edges*/ 2 && line_stroke_value !== (line_stroke_value = /*e*/ ctx[10].coord == "x" ? "orange" : "skyblue")) {
     				attr_dev(line, "stroke", line_stroke_value);
     			}
 
-    			if (!current || dirty & /*points, edges*/ 3 && line_stroke_width_value !== (line_stroke_width_value = Math.log2(/*points*/ ctx[0].length) - 1 - /*e*/ ctx[10].depth)) {
+    			if (!current || dirty & /*points, edges*/ 3 && line_stroke_width_value !== (line_stroke_width_value = 2 + 0.5 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*e*/ ctx[10].depth))) {
     				attr_dev(line, "stroke-width", line_stroke_width_value);
+    			}
+
+    			if (!current || dirty & /*edges*/ 2 && line_marker_end_value !== (line_marker_end_value = `url(#arrow${/*e*/ ctx[10].coord})`)) {
+    				attr_dev(line, "marker-end", line_marker_end_value);
     			}
     		},
     		i: function intro(local) {
@@ -872,14 +878,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(86:1) {#each edges as e}",
+    		source: "(117:1) {#each edges as e}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (98:1) {#each points as p}
+    // (130:1) {#each points as p}
     function create_each_block(ctx) {
     	let circle;
     	let circle_cx_value;
@@ -894,7 +900,7 @@ var app = (function () {
     			attr_dev(circle, "cy", circle_cy_value = "" + /*p*/ ctx[7].y);
     			attr_dev(circle, "r", 6);
     			attr_dev(circle, "fill", "black");
-    			add_location(circle, file, 98, 2, 2326);
+    			add_location(circle, file, 130, 2, 2875);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, circle, anchor);
@@ -935,7 +941,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(98:1) {#each points as p}",
+    		source: "(130:1) {#each points as p}",
     		ctx
     	});
 
@@ -944,6 +950,11 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let svg;
+    	let defs;
+    	let marker0;
+    	let path0;
+    	let marker1;
+    	let path1;
     	let each0_anchor;
     	let each1_anchor;
     	let current;
@@ -986,6 +997,11 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			svg = svg_element("svg");
+    			defs = svg_element("defs");
+    			marker0 = svg_element("marker");
+    			path0 = svg_element("path");
+    			marker1 = svg_element("marker");
+    			path1 = svg_element("path");
 
     			for (let i = 0; i < each_blocks_2.length; i += 1) {
     				each_blocks_2[i].c();
@@ -1003,16 +1019,46 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
+    			attr_dev(path0, "d", "M 0 0 L 10 5 L 0 10");
+    			attr_dev(path0, "stroke", "orange");
+    			attr_dev(path0, "fill", "none");
+    			add_location(path0, file, 80, 3, 1907);
+    			attr_dev(marker0, "id", "arrowx");
+    			attr_dev(marker0, "viewBox", "0 0 10 10");
+    			attr_dev(marker0, "refX", "10");
+    			attr_dev(marker0, "refY", "5");
+    			attr_dev(marker0, "markerWidth", "6");
+    			attr_dev(marker0, "markerHeight", "6");
+    			attr_dev(marker0, "orient", "auto-start-reverse");
+    			add_location(marker0, file, 71, 2, 1759);
+    			attr_dev(path1, "d", "M 0 0 L 10 5 L 0 10");
+    			attr_dev(path1, "stroke", "skyblue");
+    			attr_dev(path1, "fill", "none");
+    			add_location(path1, file, 95, 3, 2145);
+    			attr_dev(marker1, "id", "arrowy");
+    			attr_dev(marker1, "viewBox", "0 0 10 10");
+    			attr_dev(marker1, "refX", "10");
+    			attr_dev(marker1, "refY", "5");
+    			attr_dev(marker1, "markerWidth", "6");
+    			attr_dev(marker1, "markerHeight", "6");
+    			attr_dev(marker1, "orient", "auto-start-reverse");
+    			add_location(marker1, file, 86, 2, 1997);
+    			add_location(defs, file, 70, 1, 1750);
     			attr_dev(svg, "width", 1064);
     			attr_dev(svg, "height", 1064);
     			attr_dev(svg, "viewBox", "-32 -32 " + 1064 + " " + 1064);
-    			add_location(svg, file, 71, 0, 1688);
+    			add_location(svg, file, 69, 0, 1684);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, svg, anchor);
+    			append_dev(svg, defs);
+    			append_dev(defs, marker0);
+    			append_dev(marker0, path0);
+    			append_dev(defs, marker1);
+    			append_dev(marker1, path1);
 
     			for (let i = 0; i < each_blocks_2.length; i += 1) {
     				if (each_blocks_2[i]) {
@@ -1184,7 +1230,7 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
     	let points = [];
-    	for (let i = 0; i < 100; i++) points.push(0);
+    	for (let i = 0; i < 50; i++) points.push(0);
 
     	points = points.map(() => ({
     		x: 10 + 1000 * Math.random(),
@@ -1243,7 +1289,7 @@ var app = (function () {
     		$$invalidate(1, edges);
     		$$invalidate(2, rects);
     		maxdepth++;
-    		if (maxdepth < Math.log2(points.length)) setTimeout(loop, 2000);
+    		if (maxdepth < Math.log2(points.length)) setTimeout(loop, 500);
     	}
 
     	loop();

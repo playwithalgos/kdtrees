@@ -1,7 +1,7 @@
 <script>
 	import { draw } from "svelte/transition";
 	let points = [];
-	for (let i = 0; i < 100; i++) points.push(0);
+	for (let i = 0; i < 50; i++) points.push(0);
 	points = points.map(() => ({
 		x: 10 + 1000 * Math.random(),
 		y: 10 + 1000 * Math.random(),
@@ -62,14 +62,45 @@
 		edges = edges;
 		rects = rects;
 		maxdepth++;
-		if (maxdepth < Math.log2(points.length)) setTimeout(loop, 2000);
+		if (maxdepth < Math.log2(points.length)) setTimeout(loop, 500);
 	}
 	loop();
-
-
 </script>
 
 <svg width={1064} height={1064} viewBox="-32 -32 {1064} {1064}">
+	<defs>
+		<marker
+			id="arrowx"
+			viewBox="0 0 10 10"
+			refX="10"
+			refY="5"
+			markerWidth="6"
+			markerHeight="6"
+			orient="auto-start-reverse"
+		>
+			<path
+				d="M 0 0 L 10 5 L 0 10"
+				stroke="orange"
+				fill="none"
+			/>
+		</marker>
+		<marker
+			id="arrowy"
+			viewBox="0 0 10 10"
+			refX="10"
+			refY="5"
+			markerWidth="6"
+			markerHeight="6"
+			orient="auto-start-reverse"
+		>
+			<path
+				d="M 0 0 L 10 5 L 0 10"
+				stroke="skyblue"
+				fill="none"
+			/>
+		</marker>
+	</defs>
+
 	{#each rects as r}
 		<rect
 			transition:draw={{ duration: 1000 }}
@@ -78,7 +109,7 @@
 			width={"" + (r.x2 - r.x1)}
 			height={"" + (r.y2 - r.y1)}
 			stroke="lightgray"
-			stroke-width={2 * (Math.log2(points.length) - 1 - r.depth)}
+			stroke-width={3 * (Math.log2(points.length) - 1 - r.depth)}
 			fill="none"
 		/>
 	{/each}
@@ -90,8 +121,9 @@
 			y1={"" + e.begin.y}
 			x2={"" + e.end.x}
 			y2={"" + e.end.y}
-			stroke={e.coord == "x" ? "red" : "blue"}
-			stroke-width={Math.log2(points.length) - 1 - e.depth}
+			stroke={e.coord == "x" ? "orange" : "skyblue"}
+			stroke-width={2 + 0.5 * (Math.log2(points.length) - 1 - e.depth)}
+			marker-end={`url(#arrow${e.coord})`}
 		/>
 	{/each}
 
