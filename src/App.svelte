@@ -15,13 +15,9 @@
 	}
 
 	let rects = [];
-	let maxdepth = 6;
+	let maxdepth = -2;
 
 	function createKDTree(points, coord, depth, r) {
-		if (depth > maxdepth) return;
-		rects.push({ ...r, depth: depth });
-		
-
 		function median(points, coord) {
 			return points.sort((a, b) => a[coord] - b[coord])[
 				Math.floor(points.length / 2)
@@ -32,6 +28,11 @@
 			return coord == "x" ? "y" : "x";
 		}
 		const m = median(points, coord);
+
+		rects.push({ ...r, depth: depth });
+
+		if (depth > maxdepth) return m;
+
 		const p1 = points.filter((p) => p[coord] <= m[coord] && p != m);
 		const p2 = points.filter((p) => p[coord] > m[coord]);
 
@@ -56,22 +57,41 @@
 		return m;
 	}
 
-	createKDTree(points, "x", 0, { x1: 0, y1: 0, x2: 1000, y2: 1000 });
-	edges = edges;
-	rects = rects;
+	function loop() {
+		createKDTree(points, "x", 0, { x1: 0, y1: 0, x2: 1000, y2: 1000 });
+		edges = edges;
+		rects = rects;
+		maxdepth++;
+		if (maxdepth < Math.log2(points.length)) setTimeout(loop, 2000);
+	}
+	loop();
+
+
 </script>
 
 <svg width={1064} height={1064} viewBox="-32 -32 {1064} {1064}">
 	{#each rects as r}
 		<rect
-			transition:draw={{ duration: 500 }}
+			transition:draw={{ duration: 1000 }}
 			x={"" + r.x1}
 			y={"" + r.y1}
 			width={"" + (r.x2 - r.x1)}
 			height={"" + (r.y2 - r.y1)}
-			stroke={"lightgray"}
-			stroke-width={3 * (Math.log2(points.length) - 1 - r.depth)}
+			stroke="lightgray"
+			stroke-width={2 * (Math.log2(points.length) - 1 - r.depth)}
 			fill="none"
+		/>
+	{/each}
+
+	{#each edges as e}
+		<line
+			transition:draw={{ duration: 1000 }}
+			x1={"" + e.begin.x}
+			y1={"" + e.begin.y}
+			x2={"" + e.end.x}
+			y2={"" + e.end.y}
+			stroke={e.coord == "x" ? "red" : "blue"}
+			stroke-width={Math.log2(points.length) - 1 - e.depth}
 		/>
 	{/each}
 
@@ -82,18 +102,6 @@
 			cy={"" + p.y}
 			r={6}
 			fill="black"
-		/>
-	{/each}
-
-	{#each edges as e}
-		<line
-			transition:draw={{ duration: 500 }}
-			x1={"" + e.begin.x}
-			y1={"" + e.begin.y}
-			x2={"" + e.end.x}
-			y2={"" + e.end.y}
-			stroke={e.coord == "x" ? "black" : "blue"}
-			stroke-width={Math.log2(points.length) - 1 - e.depth}
 		/>
 	{/each}
 </svg>
