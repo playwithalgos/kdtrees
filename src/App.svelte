@@ -1,11 +1,11 @@
 <script>
 	import { draw } from "svelte/transition";
 	let points = [];
-	const DELAY = 2000;
+	const DELAY = 1000;
 	const WIDTH = 1920;
-	const HEIGHT = 1280;
-	const NBPOINTS= 100;
-	const NIGHTMODE = false;
+	const HEIGHT = 1080;
+	const NBPOINTS = 120;
+	const NIGHTMODE = true;
 
 	function alignedWithExistingPoints(pt) {
 		function aligned(A, B, C) {
@@ -31,14 +31,27 @@
 		return false;
 	}
 
-	for (let i = 0; i <NBPOINTS; i++) {
-		function arrondi(x) {
-			const grain = 16;
-			return Math.round(x / grain) * grain;
-		}
+	function arrondi(x) {
+		const grain = 8;
+		return Math.round(x / grain) * grain;
+	}
+
+	function generateX() {
+		const x = arrondi(10 + (WIDTH - 30) * Math.random());
+		for (const A of points) if (A.x == x) return generateX();
+		return x;
+	}
+
+	function generateY() {
+		const y = arrondi(10 + (HEIGHT - 30) * Math.random());
+		for (const A of points) if (A.y == y) return generateY();
+		return y;
+	}
+
+	for (let i = 0; i < NBPOINTS; i++) {
 		const pt = {
-			x: arrondi(10 + (WIDTH - 10) * Math.random()),
-			y: arrondi(10 + (HEIGHT - 10) * Math.random()),
+			x: generateX(),
+			y: generateY(),
 		};
 
 		//	if (!alignedWithExistingPoints(pt) && !closeFromExistingPoints(pt))
@@ -51,7 +64,8 @@
 		edges.push({ begin: m, end: m1, coord, depth });
 	}
 
-	let rects = [];
+	let verticalLines = [];
+	let horizontalLines = [];
 	let maxdepth = -2;
 
 	function createKDTree(points, coord, depth, r) {
@@ -67,10 +81,18 @@
 		const m = median(points, coord);
 		m.depth = depth;
 
-		rects.push({ ...r, depth: depth });
+		if (coord == "x")
+			verticalLines.push({ x1: m.x, x2: m.x, y1: r.y1, y2: r.y2, depth });
+		else
+			horizontalLines.push({
+				y1: m.y,
+				y2: m.y,
+				x1: r.x1,
+				x2: r.x2,
+				depth,
+			});
 
 		if (depth > maxdepth) return m;
-
 
 		const p1 = points.filter((p) => p[coord] <= m[coord] && p != m);
 		const p2 = points.filter((p) => p[coord] > m[coord]);
@@ -101,11 +123,13 @@
 		createKDTree(points, "x", 0, { x1: 0, y1: 0, x2: WIDTH, y2: HEIGHT });
 		points = points;
 		edges = edges;
-		rects = rects;
+		verticalLines = verticalLines;
+		horizontalLines = horizontalLines;
 		maxdepth++;
 		if (maxdepth < Math.log2(points.length)) setTimeout(loop, DELAY);
 	}
-	loop();
+
+	setTimeout(loop, DELAY);
 </script>
 
 <svg width={WIDTH} height={HEIGHT} viewBox="-32 -32 {WIDTH + 32} {HEIGHT + 32}">
@@ -113,7 +137,7 @@
 		<marker
 			id="arrowx"
 			viewBox="0 0 10 10"
-			refX="10"
+			refX="16"
 			refY="5"
 			markerWidth="6"
 			markerHeight="6"
@@ -124,7 +148,7 @@
 		<marker
 			id="arrowy"
 			viewBox="0 0 10 10"
-			refX="10"
+			refX="16"
 			refY="5"
 			markerWidth="6"
 			markerHeight="6"
@@ -134,16 +158,28 @@
 		</marker>
 	</defs>
 
-	{#each rects as r}
-		<rect
+	{#each horizontalLines as line}
+		<line
 			transition:draw={{ duration: 1000 }}
-			x={"" + r.x1}
-			y={"" + r.y1}
-			width={"" + (r.x2 - r.x1)}
-			height={"" + (r.y2 - r.y1)}
-			stroke="lightgray"
-			opacity="0.5"
-			stroke-width={3 * (Math.log2(points.length) - 1 - r.depth)}
+			x1={"" + line.x1}
+			y1={"" + line.y1}
+			x2={"" + line.x2}
+			y2={"" + line.y2}
+			stroke="skyblue"
+			stroke-width={2 * (Math.log2(points.length) - 1 - line.depth)}
+			fill="none"
+		/>
+	{/each}
+
+	{#each verticalLines as line}
+		<line
+			transition:draw={{ duration: 1000 }}
+			x1={"" + line.x1}
+			y1={"" + line.y1}
+			x2={"" + line.x2}
+			y2={"" + line.y2}
+			stroke="orange"
+			stroke-width={2 * (Math.log2(points.length) - 1 - line.depth)}
 			fill="none"
 		/>
 	{/each}
@@ -166,19 +202,26 @@
 			transition:draw={{ duration: 500 }}
 			cx={"" + p.x}
 			cy={"" + p.y}
-			r={p.depth == undefined ? 10 : (10 + 2 * (Math.log2(points.length) - 1 - p.depth))}
-			stroke={(NIGHTMODE ? "white" : "black")}
+			r={p.depth == undefined
+				? 10
+				: 10 + 2 * (Math.log2(points.length) - 1 - p.depth)}
+			stroke={NIGHTMODE ? "white" : "black"}
+			stroke-width=2
 			fill={p.split == "x"
 				? "orange"
 				: p.split == "y"
 				? "skyblue"
-				: (NIGHTMODE ? "white" : "black")}
+				: NIGHTMODE
+				? "white"
+				: "black"}
 		/>
 	{/each}
 </svg>
 
 <style>
 	:global(body) {
-		background-color: white;
+		background-color: black;
+		text-align: center;
+		vertical-align: middle;
 	}
 </style>

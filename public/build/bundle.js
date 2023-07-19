@@ -689,69 +689,74 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[9] = list[i];
+    	child_ctx[12] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[12] = list[i];
+    	child_ctx[15] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[15] = list[i];
+    	child_ctx[18] = list[i];
     	return child_ctx;
     }
 
-    // (137:1) {#each rects as r}
-    function create_each_block_2(ctx) {
-    	let rect;
-    	let rect_x_value;
-    	let rect_y_value;
-    	let rect_width_value;
-    	let rect_height_value;
-    	let rect_stroke_width_value;
-    	let rect_transition;
+    function get_each_context_3(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[18] = list[i];
+    	return child_ctx;
+    }
+
+    // (161:1) {#each horizontalLines as line}
+    function create_each_block_3(ctx) {
+    	let line;
+    	let line_x__value;
+    	let line_y__value;
+    	let line_x__value_1;
+    	let line_y__value_1;
+    	let line_stroke_width_value;
+    	let line_transition;
     	let current;
 
     	const block = {
     		c: function create() {
-    			rect = svg_element("rect");
-    			attr_dev(rect, "x", rect_x_value = "" + /*r*/ ctx[15].x1);
-    			attr_dev(rect, "y", rect_y_value = "" + /*r*/ ctx[15].y1);
-    			attr_dev(rect, "width", rect_width_value = "" + (/*r*/ ctx[15].x2 - /*r*/ ctx[15].x1));
-    			attr_dev(rect, "height", rect_height_value = "" + (/*r*/ ctx[15].y2 - /*r*/ ctx[15].y1));
-    			attr_dev(rect, "stroke", "lightgray");
-    			attr_dev(rect, "opacity", "0.5");
-    			attr_dev(rect, "stroke-width", rect_stroke_width_value = 3 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*r*/ ctx[15].depth));
-    			attr_dev(rect, "fill", "none");
-    			add_location(rect, file, 137, 2, 3154);
+    			line = svg_element("line");
+    			attr_dev(line, "x1", line_x__value = "" + /*line*/ ctx[18].x1);
+    			attr_dev(line, "y1", line_y__value = "" + /*line*/ ctx[18].y1);
+    			attr_dev(line, "x2", line_x__value_1 = "" + /*line*/ ctx[18].x2);
+    			attr_dev(line, "y2", line_y__value_1 = "" + /*line*/ ctx[18].y2);
+    			attr_dev(line, "stroke", "skyblue");
+    			attr_dev(line, "stroke-width", line_stroke_width_value = 2 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*line*/ ctx[18].depth));
+    			attr_dev(line, "fill", "none");
+    			add_location(line, file, 161, 2, 3678);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, rect, anchor);
+    			insert_dev(target, line, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (!current || dirty & /*rects*/ 4 && rect_x_value !== (rect_x_value = "" + /*r*/ ctx[15].x1)) {
-    				attr_dev(rect, "x", rect_x_value);
+    			if (!current || dirty & /*horizontalLines*/ 8 && line_x__value !== (line_x__value = "" + /*line*/ ctx[18].x1)) {
+    				attr_dev(line, "x1", line_x__value);
     			}
 
-    			if (!current || dirty & /*rects*/ 4 && rect_y_value !== (rect_y_value = "" + /*r*/ ctx[15].y1)) {
-    				attr_dev(rect, "y", rect_y_value);
+    			if (!current || dirty & /*horizontalLines*/ 8 && line_y__value !== (line_y__value = "" + /*line*/ ctx[18].y1)) {
+    				attr_dev(line, "y1", line_y__value);
     			}
 
-    			if (!current || dirty & /*rects*/ 4 && rect_width_value !== (rect_width_value = "" + (/*r*/ ctx[15].x2 - /*r*/ ctx[15].x1))) {
-    				attr_dev(rect, "width", rect_width_value);
+    			if (!current || dirty & /*horizontalLines*/ 8 && line_x__value_1 !== (line_x__value_1 = "" + /*line*/ ctx[18].x2)) {
+    				attr_dev(line, "x2", line_x__value_1);
     			}
 
-    			if (!current || dirty & /*rects*/ 4 && rect_height_value !== (rect_height_value = "" + (/*r*/ ctx[15].y2 - /*r*/ ctx[15].y1))) {
-    				attr_dev(rect, "height", rect_height_value);
+    			if (!current || dirty & /*horizontalLines*/ 8 && line_y__value_1 !== (line_y__value_1 = "" + /*line*/ ctx[18].y2)) {
+    				attr_dev(line, "y2", line_y__value_1);
     			}
 
-    			if (!current || dirty & /*points, rects*/ 5 && rect_stroke_width_value !== (rect_stroke_width_value = 3 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*r*/ ctx[15].depth))) {
-    				attr_dev(rect, "stroke-width", rect_stroke_width_value);
+    			if (!current || dirty & /*points, horizontalLines*/ 9 && line_stroke_width_value !== (line_stroke_width_value = 2 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*line*/ ctx[18].depth))) {
+    				attr_dev(line, "stroke-width", line_stroke_width_value);
     			}
     		},
     		i: function intro(local) {
@@ -759,20 +764,101 @@ var app = (function () {
 
     			add_render_callback(() => {
     				if (!current) return;
-    				if (!rect_transition) rect_transition = create_bidirectional_transition(rect, draw, { duration: 1000 }, true);
-    				rect_transition.run(1);
+    				if (!line_transition) line_transition = create_bidirectional_transition(line, draw, { duration: 1000 }, true);
+    				line_transition.run(1);
     			});
 
     			current = true;
     		},
     		o: function outro(local) {
-    			if (!rect_transition) rect_transition = create_bidirectional_transition(rect, draw, { duration: 1000 }, false);
-    			rect_transition.run(0);
+    			if (!line_transition) line_transition = create_bidirectional_transition(line, draw, { duration: 1000 }, false);
+    			line_transition.run(0);
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(rect);
-    			if (detaching && rect_transition) rect_transition.end();
+    			if (detaching) detach_dev(line);
+    			if (detaching && line_transition) line_transition.end();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_3.name,
+    		type: "each",
+    		source: "(161:1) {#each horizontalLines as line}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (174:1) {#each verticalLines as line}
+    function create_each_block_2(ctx) {
+    	let line;
+    	let line_x__value;
+    	let line_y__value;
+    	let line_x__value_1;
+    	let line_y__value_1;
+    	let line_stroke_width_value;
+    	let line_transition;
+    	let current;
+
+    	const block = {
+    		c: function create() {
+    			line = svg_element("line");
+    			attr_dev(line, "x1", line_x__value = "" + /*line*/ ctx[18].x1);
+    			attr_dev(line, "y1", line_y__value = "" + /*line*/ ctx[18].y1);
+    			attr_dev(line, "x2", line_x__value_1 = "" + /*line*/ ctx[18].x2);
+    			attr_dev(line, "y2", line_y__value_1 = "" + /*line*/ ctx[18].y2);
+    			attr_dev(line, "stroke", "orange");
+    			attr_dev(line, "stroke-width", line_stroke_width_value = 2 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*line*/ ctx[18].depth));
+    			attr_dev(line, "fill", "none");
+    			add_location(line, file, 174, 2, 3957);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, line, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (!current || dirty & /*verticalLines*/ 4 && line_x__value !== (line_x__value = "" + /*line*/ ctx[18].x1)) {
+    				attr_dev(line, "x1", line_x__value);
+    			}
+
+    			if (!current || dirty & /*verticalLines*/ 4 && line_y__value !== (line_y__value = "" + /*line*/ ctx[18].y1)) {
+    				attr_dev(line, "y1", line_y__value);
+    			}
+
+    			if (!current || dirty & /*verticalLines*/ 4 && line_x__value_1 !== (line_x__value_1 = "" + /*line*/ ctx[18].x2)) {
+    				attr_dev(line, "x2", line_x__value_1);
+    			}
+
+    			if (!current || dirty & /*verticalLines*/ 4 && line_y__value_1 !== (line_y__value_1 = "" + /*line*/ ctx[18].y2)) {
+    				attr_dev(line, "y2", line_y__value_1);
+    			}
+
+    			if (!current || dirty & /*points, verticalLines*/ 5 && line_stroke_width_value !== (line_stroke_width_value = 2 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*line*/ ctx[18].depth))) {
+    				attr_dev(line, "stroke-width", line_stroke_width_value);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			add_render_callback(() => {
+    				if (!current) return;
+    				if (!line_transition) line_transition = create_bidirectional_transition(line, draw, { duration: 1000 }, true);
+    				line_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (!line_transition) line_transition = create_bidirectional_transition(line, draw, { duration: 1000 }, false);
+    			line_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(line);
+    			if (detaching && line_transition) line_transition.end();
     		}
     	};
 
@@ -780,14 +866,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(137:1) {#each rects as r}",
+    		source: "(174:1) {#each verticalLines as line}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (151:1) {#each edges as e}
+    // (187:1) {#each edges as e}
     function create_each_block_1(ctx) {
     	let line;
     	let line_x__value;
@@ -803,45 +889,45 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			line = svg_element("line");
-    			attr_dev(line, "x1", line_x__value = "" + /*e*/ ctx[12].begin.x);
-    			attr_dev(line, "y1", line_y__value = "" + /*e*/ ctx[12].begin.y);
-    			attr_dev(line, "x2", line_x__value_1 = "" + /*e*/ ctx[12].end.x);
-    			attr_dev(line, "y2", line_y__value_1 = "" + /*e*/ ctx[12].end.y);
-    			attr_dev(line, "stroke", line_stroke_value = /*e*/ ctx[12].coord == "x" ? "orange" : "skyblue");
-    			attr_dev(line, "stroke-width", line_stroke_width_value = 2 + 0.5 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*e*/ ctx[12].depth));
-    			attr_dev(line, "marker-end", line_marker_end_value = `url(#arrow${/*e*/ ctx[12].coord})`);
-    			add_location(line, file, 151, 2, 3449);
+    			attr_dev(line, "x1", line_x__value = "" + /*e*/ ctx[15].begin.x);
+    			attr_dev(line, "y1", line_y__value = "" + /*e*/ ctx[15].begin.y);
+    			attr_dev(line, "x2", line_x__value_1 = "" + /*e*/ ctx[15].end.x);
+    			attr_dev(line, "y2", line_y__value_1 = "" + /*e*/ ctx[15].end.y);
+    			attr_dev(line, "stroke", line_stroke_value = /*e*/ ctx[15].coord == "x" ? "orange" : "skyblue");
+    			attr_dev(line, "stroke-width", line_stroke_width_value = 2 + 0.5 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*e*/ ctx[15].depth));
+    			attr_dev(line, "marker-end", line_marker_end_value = `url(#arrow${/*e*/ ctx[15].coord})`);
+    			add_location(line, file, 187, 2, 4224);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, line, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (!current || dirty & /*edges*/ 2 && line_x__value !== (line_x__value = "" + /*e*/ ctx[12].begin.x)) {
+    			if (!current || dirty & /*edges*/ 2 && line_x__value !== (line_x__value = "" + /*e*/ ctx[15].begin.x)) {
     				attr_dev(line, "x1", line_x__value);
     			}
 
-    			if (!current || dirty & /*edges*/ 2 && line_y__value !== (line_y__value = "" + /*e*/ ctx[12].begin.y)) {
+    			if (!current || dirty & /*edges*/ 2 && line_y__value !== (line_y__value = "" + /*e*/ ctx[15].begin.y)) {
     				attr_dev(line, "y1", line_y__value);
     			}
 
-    			if (!current || dirty & /*edges*/ 2 && line_x__value_1 !== (line_x__value_1 = "" + /*e*/ ctx[12].end.x)) {
+    			if (!current || dirty & /*edges*/ 2 && line_x__value_1 !== (line_x__value_1 = "" + /*e*/ ctx[15].end.x)) {
     				attr_dev(line, "x2", line_x__value_1);
     			}
 
-    			if (!current || dirty & /*edges*/ 2 && line_y__value_1 !== (line_y__value_1 = "" + /*e*/ ctx[12].end.y)) {
+    			if (!current || dirty & /*edges*/ 2 && line_y__value_1 !== (line_y__value_1 = "" + /*e*/ ctx[15].end.y)) {
     				attr_dev(line, "y2", line_y__value_1);
     			}
 
-    			if (!current || dirty & /*edges*/ 2 && line_stroke_value !== (line_stroke_value = /*e*/ ctx[12].coord == "x" ? "orange" : "skyblue")) {
+    			if (!current || dirty & /*edges*/ 2 && line_stroke_value !== (line_stroke_value = /*e*/ ctx[15].coord == "x" ? "orange" : "skyblue")) {
     				attr_dev(line, "stroke", line_stroke_value);
     			}
 
-    			if (!current || dirty & /*points, edges*/ 3 && line_stroke_width_value !== (line_stroke_width_value = 2 + 0.5 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*e*/ ctx[12].depth))) {
+    			if (!current || dirty & /*points, edges*/ 3 && line_stroke_width_value !== (line_stroke_width_value = 2 + 0.5 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*e*/ ctx[15].depth))) {
     				attr_dev(line, "stroke-width", line_stroke_width_value);
     			}
 
-    			if (!current || dirty & /*edges*/ 2 && line_marker_end_value !== (line_marker_end_value = `url(#arrow${/*e*/ ctx[12].coord})`)) {
+    			if (!current || dirty & /*edges*/ 2 && line_marker_end_value !== (line_marker_end_value = `url(#arrow${/*e*/ ctx[15].coord})`)) {
     				attr_dev(line, "marker-end", line_marker_end_value);
     			}
     		},
@@ -871,14 +957,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(151:1) {#each edges as e}",
+    		source: "(187:1) {#each edges as e}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (164:1) {#each points as p}
+    // (200:1) {#each points as p}
     function create_each_block(ctx) {
     	let circle;
     	let circle_cx_value;
@@ -891,47 +977,48 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			circle = svg_element("circle");
-    			attr_dev(circle, "cx", circle_cx_value = "" + /*p*/ ctx[9].x);
-    			attr_dev(circle, "cy", circle_cy_value = "" + /*p*/ ctx[9].y);
+    			attr_dev(circle, "cx", circle_cx_value = "" + /*p*/ ctx[12].x);
+    			attr_dev(circle, "cy", circle_cy_value = "" + /*p*/ ctx[12].y);
 
-    			attr_dev(circle, "r", circle_r_value = /*p*/ ctx[9].depth == undefined
+    			attr_dev(circle, "r", circle_r_value = /*p*/ ctx[12].depth == undefined
     			? 10
-    			: 10 + 2 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*p*/ ctx[9].depth));
+    			: 10 + 2 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*p*/ ctx[12].depth));
 
-    			attr_dev(circle, "stroke", "black");
+    			attr_dev(circle, "stroke", "white" );
+    			attr_dev(circle, "stroke-width", "2");
 
-    			attr_dev(circle, "fill", circle_fill_value = /*p*/ ctx[9].split == "x"
+    			attr_dev(circle, "fill", circle_fill_value = /*p*/ ctx[12].split == "x"
     			? "orange"
-    			: /*p*/ ctx[9].split == "y"
+    			: /*p*/ ctx[12].split == "y"
     				? "skyblue"
-    				: "black");
+    				: "white" );
 
-    			add_location(circle, file, 164, 2, 3780);
+    			add_location(circle, file, 200, 2, 4555);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, circle, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (!current || dirty & /*points*/ 1 && circle_cx_value !== (circle_cx_value = "" + /*p*/ ctx[9].x)) {
+    			if (!current || dirty & /*points*/ 1 && circle_cx_value !== (circle_cx_value = "" + /*p*/ ctx[12].x)) {
     				attr_dev(circle, "cx", circle_cx_value);
     			}
 
-    			if (!current || dirty & /*points*/ 1 && circle_cy_value !== (circle_cy_value = "" + /*p*/ ctx[9].y)) {
+    			if (!current || dirty & /*points*/ 1 && circle_cy_value !== (circle_cy_value = "" + /*p*/ ctx[12].y)) {
     				attr_dev(circle, "cy", circle_cy_value);
     			}
 
-    			if (!current || dirty & /*points*/ 1 && circle_r_value !== (circle_r_value = /*p*/ ctx[9].depth == undefined
+    			if (!current || dirty & /*points*/ 1 && circle_r_value !== (circle_r_value = /*p*/ ctx[12].depth == undefined
     			? 10
-    			: 10 + 2 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*p*/ ctx[9].depth))) {
+    			: 10 + 2 * (Math.log2(/*points*/ ctx[0].length) - 1 - /*p*/ ctx[12].depth))) {
     				attr_dev(circle, "r", circle_r_value);
     			}
 
-    			if (!current || dirty & /*points*/ 1 && circle_fill_value !== (circle_fill_value = /*p*/ ctx[9].split == "x"
+    			if (!current || dirty & /*points*/ 1 && circle_fill_value !== (circle_fill_value = /*p*/ ctx[12].split == "x"
     			? "orange"
-    			: /*p*/ ctx[9].split == "y"
+    			: /*p*/ ctx[12].split == "y"
     				? "skyblue"
-    				: "black")) {
+    				: "white" )) {
     				attr_dev(circle, "fill", circle_fill_value);
     			}
     		},
@@ -961,7 +1048,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(164:1) {#each points as p}",
+    		source: "(200:1) {#each points as p}",
     		ctx
     	});
 
@@ -977,8 +1064,21 @@ var app = (function () {
     	let path1;
     	let each0_anchor;
     	let each1_anchor;
+    	let each2_anchor;
     	let current;
-    	let each_value_2 = /*rects*/ ctx[2];
+    	let each_value_3 = /*horizontalLines*/ ctx[3];
+    	validate_each_argument(each_value_3);
+    	let each_blocks_3 = [];
+
+    	for (let i = 0; i < each_value_3.length; i += 1) {
+    		each_blocks_3[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+    	}
+
+    	const out = i => transition_out(each_blocks_3[i], 1, 1, () => {
+    		each_blocks_3[i] = null;
+    	});
+
+    	let each_value_2 = /*verticalLines*/ ctx[2];
     	validate_each_argument(each_value_2);
     	let each_blocks_2 = [];
 
@@ -986,7 +1086,7 @@ var app = (function () {
     		each_blocks_2[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     	}
 
-    	const out = i => transition_out(each_blocks_2[i], 1, 1, () => {
+    	const out_1 = i => transition_out(each_blocks_2[i], 1, 1, () => {
     		each_blocks_2[i] = null;
     	});
 
@@ -998,7 +1098,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     	}
 
-    	const out_1 = i => transition_out(each_blocks_1[i], 1, 1, () => {
+    	const out_2 = i => transition_out(each_blocks_1[i], 1, 1, () => {
     		each_blocks_1[i] = null;
     	});
 
@@ -1010,7 +1110,7 @@ var app = (function () {
     		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
     	}
 
-    	const out_2 = i => transition_out(each_blocks[i], 1, 1, () => {
+    	const out_3 = i => transition_out(each_blocks[i], 1, 1, () => {
     		each_blocks[i] = null;
     	});
 
@@ -1023,17 +1123,23 @@ var app = (function () {
     			marker1 = svg_element("marker");
     			path1 = svg_element("path");
 
+    			for (let i = 0; i < each_blocks_3.length; i += 1) {
+    				each_blocks_3[i].c();
+    			}
+
+    			each0_anchor = empty();
+
     			for (let i = 0; i < each_blocks_2.length; i += 1) {
     				each_blocks_2[i].c();
     			}
 
-    			each0_anchor = empty();
+    			each1_anchor = empty();
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].c();
     			}
 
-    			each1_anchor = empty();
+    			each2_anchor = empty();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
@@ -1042,32 +1148,32 @@ var app = (function () {
     			attr_dev(path0, "d", "M 0 0 L 10 5 L 0 10");
     			attr_dev(path0, "stroke", "orange");
     			attr_dev(path0, "fill", "none");
-    			add_location(path0, file, 121, 3, 2825);
+    			add_location(path0, file, 145, 3, 3336);
     			attr_dev(marker0, "id", "arrowx");
     			attr_dev(marker0, "viewBox", "0 0 10 10");
-    			attr_dev(marker0, "refX", "10");
+    			attr_dev(marker0, "refX", "16");
     			attr_dev(marker0, "refY", "5");
     			attr_dev(marker0, "markerWidth", "6");
     			attr_dev(marker0, "markerHeight", "6");
     			attr_dev(marker0, "orient", "auto-start-reverse");
-    			add_location(marker0, file, 112, 2, 2677);
+    			add_location(marker0, file, 136, 2, 3188);
     			attr_dev(path1, "d", "M 0 0 L 10 5 L 0 10");
     			attr_dev(path1, "stroke", "skyblue");
     			attr_dev(path1, "fill", "none");
-    			add_location(path1, file, 132, 3, 3048);
+    			add_location(path1, file, 156, 3, 3559);
     			attr_dev(marker1, "id", "arrowy");
     			attr_dev(marker1, "viewBox", "0 0 10 10");
-    			attr_dev(marker1, "refX", "10");
+    			attr_dev(marker1, "refX", "16");
     			attr_dev(marker1, "refY", "5");
     			attr_dev(marker1, "markerWidth", "6");
     			attr_dev(marker1, "markerHeight", "6");
     			attr_dev(marker1, "orient", "auto-start-reverse");
-    			add_location(marker1, file, 123, 2, 2900);
-    			add_location(defs, file, 111, 1, 2668);
+    			add_location(marker1, file, 147, 2, 3411);
+    			add_location(defs, file, 135, 1, 3179);
     			attr_dev(svg, "width", WIDTH);
     			attr_dev(svg, "height", HEIGHT);
     			attr_dev(svg, "viewBox", "-32 -32 " + (WIDTH + 32) + " " + (HEIGHT + 32));
-    			add_location(svg, file, 110, 0, 2586);
+    			add_location(svg, file, 134, 0, 3097);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1080,13 +1186,21 @@ var app = (function () {
     			append_dev(defs, marker1);
     			append_dev(marker1, path1);
 
+    			for (let i = 0; i < each_blocks_3.length; i += 1) {
+    				if (each_blocks_3[i]) {
+    					each_blocks_3[i].m(svg, null);
+    				}
+    			}
+
+    			append_dev(svg, each0_anchor);
+
     			for (let i = 0; i < each_blocks_2.length; i += 1) {
     				if (each_blocks_2[i]) {
     					each_blocks_2[i].m(svg, null);
     				}
     			}
 
-    			append_dev(svg, each0_anchor);
+    			append_dev(svg, each1_anchor);
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				if (each_blocks_1[i]) {
@@ -1094,7 +1208,7 @@ var app = (function () {
     				}
     			}
 
-    			append_dev(svg, each1_anchor);
+    			append_dev(svg, each2_anchor);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				if (each_blocks[i]) {
@@ -1105,8 +1219,36 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*rects, Math, points*/ 5) {
-    				each_value_2 = /*rects*/ ctx[2];
+    			if (dirty & /*horizontalLines, Math, points*/ 9) {
+    				each_value_3 = /*horizontalLines*/ ctx[3];
+    				validate_each_argument(each_value_3);
+    				let i;
+
+    				for (i = 0; i < each_value_3.length; i += 1) {
+    					const child_ctx = get_each_context_3(ctx, each_value_3, i);
+
+    					if (each_blocks_3[i]) {
+    						each_blocks_3[i].p(child_ctx, dirty);
+    						transition_in(each_blocks_3[i], 1);
+    					} else {
+    						each_blocks_3[i] = create_each_block_3(child_ctx);
+    						each_blocks_3[i].c();
+    						transition_in(each_blocks_3[i], 1);
+    						each_blocks_3[i].m(svg, each0_anchor);
+    					}
+    				}
+
+    				group_outros();
+
+    				for (i = each_value_3.length; i < each_blocks_3.length; i += 1) {
+    					out(i);
+    				}
+
+    				check_outros();
+    			}
+
+    			if (dirty & /*verticalLines, Math, points*/ 5) {
+    				each_value_2 = /*verticalLines*/ ctx[2];
     				validate_each_argument(each_value_2);
     				let i;
 
@@ -1120,14 +1262,14 @@ var app = (function () {
     						each_blocks_2[i] = create_each_block_2(child_ctx);
     						each_blocks_2[i].c();
     						transition_in(each_blocks_2[i], 1);
-    						each_blocks_2[i].m(svg, each0_anchor);
+    						each_blocks_2[i].m(svg, each1_anchor);
     					}
     				}
 
     				group_outros();
 
     				for (i = each_value_2.length; i < each_blocks_2.length; i += 1) {
-    					out(i);
+    					out_1(i);
     				}
 
     				check_outros();
@@ -1148,14 +1290,14 @@ var app = (function () {
     						each_blocks_1[i] = create_each_block_1(child_ctx);
     						each_blocks_1[i].c();
     						transition_in(each_blocks_1[i], 1);
-    						each_blocks_1[i].m(svg, each1_anchor);
+    						each_blocks_1[i].m(svg, each2_anchor);
     					}
     				}
 
     				group_outros();
 
     				for (i = each_value_1.length; i < each_blocks_1.length; i += 1) {
-    					out_1(i);
+    					out_2(i);
     				}
 
     				check_outros();
@@ -1183,7 +1325,7 @@ var app = (function () {
     				group_outros();
 
     				for (i = each_value.length; i < each_blocks.length; i += 1) {
-    					out_2(i);
+    					out_3(i);
     				}
 
     				check_outros();
@@ -1191,6 +1333,10 @@ var app = (function () {
     		},
     		i: function intro(local) {
     			if (current) return;
+
+    			for (let i = 0; i < each_value_3.length; i += 1) {
+    				transition_in(each_blocks_3[i]);
+    			}
 
     			for (let i = 0; i < each_value_2.length; i += 1) {
     				transition_in(each_blocks_2[i]);
@@ -1207,6 +1353,12 @@ var app = (function () {
     			current = true;
     		},
     		o: function outro(local) {
+    			each_blocks_3 = each_blocks_3.filter(Boolean);
+
+    			for (let i = 0; i < each_blocks_3.length; i += 1) {
+    				transition_out(each_blocks_3[i]);
+    			}
+
     			each_blocks_2 = each_blocks_2.filter(Boolean);
 
     			for (let i = 0; i < each_blocks_2.length; i += 1) {
@@ -1229,6 +1381,7 @@ var app = (function () {
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(svg);
+    			destroy_each(each_blocks_3, detaching);
     			destroy_each(each_blocks_2, detaching);
     			destroy_each(each_blocks_1, detaching);
     			destroy_each(each_blocks, detaching);
@@ -1246,11 +1399,16 @@ var app = (function () {
     	return block;
     }
 
-    const DELAY = 2000;
+    const DELAY = 1000;
     const WIDTH = 1920;
-    const HEIGHT = 1280;
-    const NBPOINTS = 100;
-    const NIGHTMODE = false;
+    const HEIGHT = 1080;
+    const NBPOINTS = 120;
+    const NIGHTMODE = true;
+
+    function arrondi(x) {
+    	const grain = 8;
+    	return Math.round(x / grain) * grain;
+    }
 
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -1276,16 +1434,20 @@ var app = (function () {
     		return false;
     	}
 
-    	for (let i = 0; i < NBPOINTS; i++) {
-    		function arrondi(x) {
-    			const grain = 16;
-    			return Math.round(x / grain) * grain;
-    		}
+    	function generateX() {
+    		const x = arrondi(10 + (WIDTH - 30) * Math.random());
+    		for (const A of points) if (A.x == x) return generateX();
+    		return x;
+    	}
 
-    		const pt = {
-    			x: arrondi(10 + (WIDTH - 10) * Math.random()),
-    			y: arrondi(10 + (HEIGHT - 10) * Math.random())
-    		};
+    	function generateY() {
+    		const y = arrondi(10 + (HEIGHT - 30) * Math.random());
+    		for (const A of points) if (A.y == y) return generateY();
+    		return y;
+    	}
+
+    	for (let i = 0; i < NBPOINTS; i++) {
+    		const pt = { x: generateX(), y: generateY() };
 
     		//	if (!alignedWithExistingPoints(pt) && !closeFromExistingPoints(pt))
     		points.push(pt);
@@ -1297,7 +1459,8 @@ var app = (function () {
     		edges.push({ begin: m, end: m1, coord, depth });
     	}
 
-    	let rects = [];
+    	let verticalLines = [];
+    	let horizontalLines = [];
     	let maxdepth = -2;
 
     	function createKDTree(points, coord, depth, r) {
@@ -1311,7 +1474,21 @@ var app = (function () {
 
     		const m = median(points, coord);
     		m.depth = depth;
-    		rects.push({ ...r, depth });
+
+    		if (coord == "x") verticalLines.push({
+    			x1: m.x,
+    			x2: m.x,
+    			y1: r.y1,
+    			y2: r.y2,
+    			depth
+    		}); else horizontalLines.push({
+    			y1: m.y,
+    			y2: m.y,
+    			x1: r.x1,
+    			x2: r.x2,
+    			depth
+    		});
+
     		if (depth > maxdepth) return m;
     		const p1 = points.filter(p => p[coord] <= m[coord] && p != m);
     		const p2 = points.filter(p => p[coord] > m[coord]);
@@ -1343,12 +1520,13 @@ var app = (function () {
     		createKDTree(points, "x", 0, { x1: 0, y1: 0, x2: WIDTH, y2: HEIGHT });
     		$$invalidate(0, points);
     		$$invalidate(1, edges);
-    		$$invalidate(2, rects);
+    		$$invalidate(2, verticalLines);
+    		$$invalidate(3, horizontalLines);
     		maxdepth++;
     		if (maxdepth < Math.log2(points.length)) setTimeout(loop, DELAY);
     	}
 
-    	loop();
+    	setTimeout(loop, DELAY);
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -1365,9 +1543,13 @@ var app = (function () {
     		NIGHTMODE,
     		alignedWithExistingPoints,
     		closeFromExistingPoints,
+    		arrondi,
+    		generateX,
+    		generateY,
     		edges,
     		addEdge,
-    		rects,
+    		verticalLines,
+    		horizontalLines,
     		maxdepth,
     		createKDTree,
     		loop
@@ -1376,7 +1558,8 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ('points' in $$props) $$invalidate(0, points = $$props.points);
     		if ('edges' in $$props) $$invalidate(1, edges = $$props.edges);
-    		if ('rects' in $$props) $$invalidate(2, rects = $$props.rects);
+    		if ('verticalLines' in $$props) $$invalidate(2, verticalLines = $$props.verticalLines);
+    		if ('horizontalLines' in $$props) $$invalidate(3, horizontalLines = $$props.horizontalLines);
     		if ('maxdepth' in $$props) maxdepth = $$props.maxdepth;
     	};
 
@@ -1384,7 +1567,7 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [points, edges, rects];
+    	return [points, edges, verticalLines, horizontalLines];
     }
 
     class App extends SvelteComponentDev {
